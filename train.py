@@ -61,10 +61,10 @@ num_gpus=1
 # Sending model to GPU  device.
 if num_gpus > 1:
     print("Training with multiple GPUs ({})".format(num_gpus))
-    model = nn.DataParallel(model).cuda()
+    model = nn.DataParallel(model).to('cuda:0')
 else:
     print("Single Cuda Node is avaiable")
-    model.cuda()
+    model.to('cuda:0')
 
 # Setting up training and testing dataloaderes.
 print("Training with dataset => {}".format(config["train_dataset"]))
@@ -139,10 +139,10 @@ else:
 
 if config[config["train_dataset"]]["VGG_Loss"]:
     vggnet = VGG19()
-    vggnet = torch.nn.DataParallel(vggnet).cuda()
+    vggnet = torch.nn.DataParallel(vggnet).to('cuda:0')
 
 if config[config["train_dataset"]]["Spatial_Loss"]:
-    Spatial_loss = Spatial_Loss(in_channels = config[config["train_dataset"]]["spectral_bands"]).cuda()
+    Spatial_loss = Spatial_Loss(in_channels = config[config["train_dataset"]]["spectral_bands"]).to('cuda:0')
 
 # Training epoch.
 def train(epoch):
@@ -160,8 +160,8 @@ def train(epoch):
             reference,_ = make_patches(reference, patch_size=config["trainer"]["patch_size"])
 
         # Taking model outputs ...
-        MS_image    = Variable(MS_image.float().cuda()) 
-        PAN_image   = Variable(PAN_image.float().cuda()) 
+        MS_image    = Variable(MS_image.float().to('cuda:0'))
+        PAN_image   = Variable(PAN_image.float().to('cuda:0'))
         out         = model(MS_image, PAN_image)
 
         outputs = out["pred"]
@@ -169,7 +169,7 @@ def train(epoch):
         ######### Computing loss #########
         # Normal L1 loss
         if config[config["train_dataset"]]["Normalized_L1"]:
-            max_ref     = torch.amax(reference, dim=(2,3)).unsqueeze(2).unsqueeze(3).expand_as(reference).cuda()
+            max_ref     = torch.amax(reference, dim=(2,3)).unsqueeze(2).unsqueeze(3).expand_as(reference).to('cuda:0')
             loss        = criterion(outputs/max_ref, to_variable(reference)/max_ref)
         else:
             loss        = criterion(outputs, to_variable(reference))
@@ -227,9 +227,9 @@ def test(epoch):
                 reference, _ = make_patches(reference, patch_size=config["trainer"]["patch_size"])
 
             # Inputs and references...
-            MS_image    = MS_image.float().cuda()
-            PAN_image   = PAN_image.float().cuda()
-            reference   = reference.float().cuda()
+            MS_image    = MS_image.float().to('cuda:0')
+            PAN_image   = PAN_image.float().to('cuda:0')
+            reference   = reference.float().to('cuda:0')
 
             # Taking model output
             out     = model(MS_image, PAN_image)
@@ -256,7 +256,7 @@ def test(epoch):
             # RMSE
             rmse += RMSE(outputs/torch.max(reference), reference/torch.max(reference))
             # ERGAS
-            beta = torch.tensor(config[config["train_dataset"]]["HR_size"]/config[config["train_dataset"]]["LR_size"]).cuda()
+            beta = torch.tensor(config[config["train_dataset"]]["HR_size"]/config[config["train_dataset"]]["LR_size"]).to('cuda:0')
             ergas += ERGAS(outputs, reference, beta)
             # PSNR
             psnr += PSNR(outputs, reference)
