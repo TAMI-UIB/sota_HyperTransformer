@@ -3,9 +3,9 @@
     "experim_name": "Experiments/HSIT",
     "model": "HSIT",
     "N_modules": 4,
-    "train_dataset": "pavia_dataset",
+    "train_dataset": "WorldView2_dataset",
     "is_DHP_MS": false,
-    "train_batch_size": 8,
+    "train_batch_size": 1,
     "val_batch_size": 1,
     "num_workers": 2,
 
@@ -25,7 +25,7 @@
         "is_small_patch_train": false,
         "patch_size": 128,
         "iter_size": 1,
-        "test_freq": 5
+        "test_freq": 1
     },
 
     "pavia_dataset": {
@@ -46,6 +46,30 @@
         "R": 10,
         "G": 30,
         "B": 60,
+        "Spatial_Loss": false,
+        "Spatial_Loss_F": 1.0,
+        "multi_scale_loss": true,
+        "multi_scale_loss_F": 0.2,
+        "feature_sum": false
+    },
+    "WorldView2_dataset": {
+        "data_dir": "/home/ivan/datasets/WorldView2/",
+        "spectral_bands": 8,
+        "LR_size": 32,
+        "HR_size": 128,
+        "augmentation": false,
+        "max_value": 1,
+        "factor": 4,
+        "optimal_lambda": 0.8,
+        "loss_type": "L1",
+        "Normalized_L1": true,
+        "VGG_Loss": true,
+        "Transfer_Periferal_Loss": true,
+        "VGG_Loss_F": 0.1,
+        "Transfer_Periferal_Loss_F": 0.05,
+        "R": 4,
+        "G": 1,
+        "B": 2,
         "Spatial_Loss": false,
         "Spatial_Loss_F": 1.0,
         "multi_scale_loss": true,

@@ -19,7 +19,7 @@ import torchvision
 from torch.distributions.uniform import Uniform
 import sys
 import kornia
-from kornia import laplacian, sobel
+
 from scipy.io import savemat
 import torch.nn.functional as F
 from utils.vgg_perceptual_loss import VGGPerceptualLoss, VGG19
@@ -31,7 +31,7 @@ def ensure_dir(file_path):
     if not os.path.exists(directory):
         os.makedirs(directory)
 
-__dataset__ = {"pavia_dataset": pavia_dataset, "botswana_dataset": botswana_dataset, "chikusei_dataset": chikusei_dataset, "botswana4_dataset": botswana4_dataset}
+__dataset__ = {"pavia_dataset": pavia_dataset, "botswana_dataset": botswana_dataset, "chikusei_dataset": chikusei_dataset, "botswana4_dataset": botswana4_dataset, "WorldView2_dataset": WorldView2}
 
 # Parse the arguments
 parser = argparse.ArgumentParser(description='PyTorch Training')
@@ -57,7 +57,7 @@ num_gpus = torch.cuda.device_count()
 # Selecting the model.
 model = MODELS[config["model"]](config)
 print(f'\n{model}\n')
-
+num_gpus=1
 # Sending model to GPU  device.
 if num_gpus > 1:
     print("Training with multiple GPUs ({})".format(num_gpus))
@@ -218,7 +218,7 @@ def test(epoch):
     pred_dic = {}
     with torch.no_grad():
         for i, data in enumerate(test_loader, 0):
-            image_dict, MS_image, PAN_image, reference = data
+            _, MS_image, PAN_image, reference = data
 
             # Generating small patches
             if config["trainer"]["is_small_patch_train"]:
@@ -244,7 +244,7 @@ def test(epoch):
             outputs[outputs<0]      = 0.0
             outputs[outputs>1.0]    = 1.0
             outputs                 = torch.round(outputs*config[config["train_dataset"]]["max_value"])
-            pred_dic.update({image_dict["imgs"][0].split("/")[-1][:-4]+"_pred": torch.squeeze(outputs).permute(1,2,0).cpu().numpy()})
+            # pred_dic.update({image_dict["imgs"][0].split("/")[-1][:-4]+"_pred": torch.squeeze(outputs).permute(1,2,0).cpu().numpy()})
             reference               = torch.round(reference.detach()*config[config["train_dataset"]]["max_value"])
 
         
@@ -322,7 +322,7 @@ def test(epoch):
                 "rmse": float(rmse), 
                 "ergas": float(ergas), 
                 "psnr": float(psnr)}
-    return image_dict, pred_dic, metrics
+    return None, None, metrics
 
 # Setting up tensorboard and copy .json file to save directory.
 PATH = "./"+config["experim_name"]+"/"+config["train_dataset"]+"/"+"N_modules("+str(config["N_modules"])+")"
@@ -346,7 +346,7 @@ for epoch in range(start_epoch, total_epochs):
 
     if epoch % config["trainer"]["test_freq"] == 0:
         print("\nTesting Epoch: %d" % epoch)
-        image_dict, pred_dic, metrics=test(epoch)
+        _, _, metrics=test(epoch)
         
         #Saving the best model
         if metrics["psnr"] > best_psnr:
@@ -358,6 +358,6 @@ for epoch in range(start_epoch, total_epochs):
                 json.dump(metrics, outfile)
 
             #Saving best prediction
-            savemat(PATH+"/"+ "final_prediction.mat", pred_dic)
+            # savemat(PATH+"/"+ "final_prediction.mat", pred_dic)
 
     

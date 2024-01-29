@@ -5,6 +5,7 @@ import random
 from socket import MsgFlag
 
 import cv2
+import h5py
 import numpy as np
 import torch
 from torch.utils import data
@@ -12,9 +13,28 @@ from torch.utils import data
 import scipy
 import scipy.ndimage
 import scipy.io
-
 # Pavia dataset (Dataset can be downloaded from the following link)
 # http://www.ehu.eus/ccwintco/index.php?title=Hyperspectral_Remote_Sensing_Scenes
+class WorldView2(data.Dataset):
+    def __init__(
+            self, config, is_train=True, is_dhp=False, want_DHP_MS_HR=False
+    ):
+        self.config = config
+        data = h5py.File(f'{self.config["WorldView2_dataset"]["data_dir"]}/data.h5')
+        self.split = "train" if is_train else "validation"
+        self.gt = data[self.split]['gt']
+        self.pan = data[self.split]['pan']
+        self.hs = data[self.split]['ms']
+
+
+    def __len__(self):
+        return self.gt.shape[0]
+
+    def __getitem__(self, index):
+        gt = torch.tensor(self.gt[index, :, :, :], dtype=torch.float32)
+        pan = torch.tensor(self.pan[index, :, :, :], dtype=torch.float32)
+        hs = torch.tensor(self.hs[index, :, :, :], dtype=torch.float32)
+        return 'cucu', hs, pan, gt
 
 class pavia_dataset(data.Dataset):
     def __init__(
@@ -126,7 +146,7 @@ class pavia_dataset(data.Dataset):
 
         image_dict, MS_image, PAN_image, reference = self.getHSIdata(index)
 
-        return image_dict, MS_image, PAN_image, reference
+        return 'cucu', MS_image, PAN_image, reference
 
 # Botswana dataset
 # http://www.ehu.eus/ccwintco/index.php?title=Hyperspectral_Remote_Sensing_Scenes
