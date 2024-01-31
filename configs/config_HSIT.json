@@ -5,9 +5,9 @@
     "N_modules": 4,
     "train_dataset": "WorldView2_dataset",
     "is_DHP_MS": false,
-    "train_batch_size": 1,
-    "val_batch_size": 1,
-    "num_workers": 2,
+    "train_batch_size": 64,
+    "val_batch_size": 64,
+    "num_workers": 16,
 
     "optimizer": {
         "type": "ADAM",
@@ -25,7 +25,7 @@
         "is_small_patch_train": false,
         "patch_size": 128,
         "iter_size": 1,
-        "test_freq": 1
+        "test_freq": 10
     },
 
     "pavia_dataset": {
@@ -68,8 +68,8 @@
         "VGG_Loss_F": 0.1,
         "Transfer_Periferal_Loss_F": 0.05,
         "R": 4,
-        "G": 1,
-        "B": 2,
+        "G": 2,
+        "B": 1,
         "Spatial_Loss": false,
         "Spatial_Loss_F": 1.0,
         "multi_scale_loss": true,
