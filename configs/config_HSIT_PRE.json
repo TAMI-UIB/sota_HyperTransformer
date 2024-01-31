@@ -3,11 +3,11 @@
     "experim_name": "Experiments/HSIT",
     "model": "HSIT_PRE",
     "N_modules": 4,
-    "train_dataset": "pavia_dataset",
+    "train_dataset": "WorldView2_dataset",
     "is_DHP_MS": false,
-    "train_batch_size": 8,
-    "val_batch_size": 1,
-    "num_workers": 2,
+    "train_batch_size": 64,
+    "val_batch_size": 64,
+    "num_workers": 16,
 
     "optimizer": {
         "type": "ADAM",
@@ -48,6 +48,30 @@
         "B": 60,
         "Spatial_Loss": false,
         "Spatial_Loss_F": 1.0
+    },
+    "WorldView2_dataset": {
+        "data_dir": "/home/ivan/datasets/WorldView2/",
+        "spectral_bands": 8,
+        "LR_size": 32,
+        "HR_size": 128,
+        "augmentation": false,
+        "max_value": 1,
+        "factor": 4,
+        "optimal_lambda": 0.8,
+        "loss_type": "L1",
+        "Normalized_L1": true,
+        "VGG_Loss": false,
+        "Transfer_Periferal_Loss": false,
+        "VGG_Loss_F": 0.1,
+        "Transfer_Periferal_Loss_F": 0.1,
+        "R": 4,
+        "G": 2,
+        "B": 1,
+        "Spatial_Loss": false,
+        "Spatial_Loss_F": 1.0,
+        "multi_scale_loss": false,
+        "multi_scale_loss_F": 0.2,
+        "feature_sum": false
     },
 
     "botswana_dataset": {
