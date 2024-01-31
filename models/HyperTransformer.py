@@ -845,7 +845,7 @@ class HyperTransformerPre(nn.Module):
                 X_MS_UP = X_MS
             
             # Generating PAN, and PAN (UD) images
-            X_PAN   = X_PAN.unsqueeze(dim=1)
+            X_PAN   = X_PAN
             PAN_D   = F.interpolate(X_PAN, scale_factor=(1/self.factor, 1/self.factor), mode ='bilinear')
             PAN_UD  = F.interpolate(PAN_D, scale_factor=(self.factor, self.factor), mode ='bilinear')
 
