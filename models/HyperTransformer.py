@@ -7,7 +7,7 @@ from torchvision import models
 LOSS_TP = nn.L1Loss()
 
 EPS = 1e-10
-
+ours_data = {'prisma_dataset', 'WorldView2_dataset'}
 def conv1x1(in_channels, out_channels, stride=1):
     return nn.Conv2d(in_channels, out_channels, kernel_size=1,
                      stride=stride, padding=0, bias=True)
@@ -790,6 +790,7 @@ class HyperTransformer(nn.Module):
 class HyperTransformerPre(nn.Module):
     def __init__(self, config):
         super(HyperTransformerPre, self).__init__()
+        self.config = config
         self.is_DHP_MS      = config["is_DHP_MS"]
         self.in_channels    = config[config["train_dataset"]]["spectral_bands"]
         self.out_channels   = config[config["train_dataset"]]["spectral_bands"]
@@ -845,7 +846,8 @@ class HyperTransformerPre(nn.Module):
                 X_MS_UP = X_MS
             
             # Generating PAN, and PAN (UD) images
-            X_PAN   = X_PAN
+
+            X_PAN   = X_PAN if self.config["train_dataset"] in ours_data else X_PAN.unsqueeze(dim=1)
             PAN_D   = F.interpolate(X_PAN, scale_factor=(1/self.factor, 1/self.factor), mode ='bilinear')
             PAN_UD  = F.interpolate(PAN_D, scale_factor=(self.factor, self.factor), mode ='bilinear')
 
@@ -861,7 +863,9 @@ class HyperTransformerPre(nn.Module):
 
         #Shallow Feature Extraction (SFE)
         x = self.SFE(X_MS)
-
+        if torch.any(torch.isnan(x)):
+            print('hol')
+            exit(2)
         #####################################
         #### stage11: (L/4, W/4) scale ######
         #####################################

@@ -36,6 +36,37 @@ class WorldView2(data.Dataset):
         hs = torch.tensor(self.hs[index, :, :, :], dtype=torch.float32)
         return 'cucu', hs, pan, gt
 
+class prisma(data.Dataset):
+    def __init__(self, config, is_train=True, is_dhp=False, want_DHP_MS_HR=False):
+        super(prisma, self).__init__()
+
+        self.config = config
+        data = h5py.File(f'{self.config["prisma_dataset"]["data_dir"]}/data.h5')
+        self.split = "train" if is_train else "validation"
+        self.gt = data[self.split]['gt']
+        self.pan = data[self.split]['pan']
+        self.hs = data[self.split]['low']
+
+        self.hyper_channels = self.gt[0].shape[0]
+        self.multi_channels = self.pan[0].shape[0]
+
+    def get_len(self):
+
+        return self.gt.shape[0]
+    def get_in_channels(self ):
+        return self.multi_channels
+    def __getitem__(self, index):
+        gt = torch.tensor(self.gt[index, :, :, :],dtype=torch.float32)
+        pan = torch.tensor(self.pan[index, :, :, :],dtype=torch.float32)
+        hs = torch.tensor(self.hs[index, :, :, :],dtype=torch.float32)
+        return 'cucu', hs, pan, gt
+
+    def __len__(self):
+        return self.gt.shape[0]
+
+    def get_img_scale(self):
+        return 1
+
 class pavia_dataset(data.Dataset):
     def __init__(
         self, config, is_train=True, is_dhp=False, want_DHP_MS_HR=False

@@ -1,13 +1,13 @@
 {
     "name": "HyperTransformer: A Textural and Spectral Feature Fusion Transformer for Pansharpening",
-    "experim_name": "Experiments/HSIT",
+    "experim_name": "Experiments/HSIT_PRE",
     "model": "HSIT_PRE",
     "N_modules": 4,
-    "train_dataset": "WorldView2_dataset",
+    "train_dataset": "prisma_dataset",
     "is_DHP_MS": false,
-    "train_batch_size": 64,
-    "val_batch_size": 64,
-    "num_workers": 16,
+    "train_batch_size": 32,
+    "val_batch_size": 32,
+    "num_workers": 8,
 
     "optimizer": {
         "type": "ADAM",
@@ -25,7 +25,7 @@
         "is_small_patch_train": false,
         "patch_size": 128,
         "iter_size": 1,
-        "test_freq": 5
+        "test_freq": 1
     },
 
     "pavia_dataset": {
@@ -47,7 +47,34 @@
         "G": 30,
         "B": 60,
         "Spatial_Loss": false,
-        "Spatial_Loss_F": 1.0
+        "Spatial_Loss_F": 1.0,
+        "multi_scale_loss": false,
+        "multi_scale_loss_F": 0.2,
+        "feature_sum": true
+    },
+    "prisma_dataset": {
+        "data_dir": "/home/ivan/datasets/prisma/",
+        "spectral_bands": 66,
+        "LR_size": 32,
+        "HR_size": 128,
+        "augmentation": false,
+        "max_value": 1,
+        "factor": 4,
+        "optimal_lambda": 0.8,
+        "loss_type": "L1",
+        "Normalized_L1": false,
+        "VGG_Loss": false,
+        "Transfer_Periferal_Loss": false,
+        "VGG_Loss_F": 0.1,
+        "Transfer_Periferal_Loss_F": 0.1,
+        "R": 35,
+        "G": 45,
+        "B": 57,
+        "Spatial_Loss": false,
+        "Spatial_Loss_F": 1.0,
+        "multi_scale_loss": false,
+        "multi_scale_loss_F": 0.2,
+        "feature_sum": true
     },
     "WorldView2_dataset": {
         "data_dir": "/home/ivan/datasets/WorldView2/",

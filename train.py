@@ -31,7 +31,7 @@ def ensure_dir(file_path):
     if not os.path.exists(directory):
         os.makedirs(directory)
 
-__dataset__ = {"pavia_dataset": pavia_dataset, "botswana_dataset": botswana_dataset, "chikusei_dataset": chikusei_dataset, "botswana4_dataset": botswana4_dataset, "WorldView2_dataset": WorldView2}
+__dataset__ = {"pavia_dataset": pavia_dataset, "botswana_dataset": botswana_dataset, "chikusei_dataset": chikusei_dataset, "botswana4_dataset": botswana4_dataset, "WorldView2_dataset": WorldView2, "prisma_dataset":prisma}
 
 # Parse the arguments
 parser = argparse.ArgumentParser(description='PyTorch Training')
@@ -203,8 +203,9 @@ def train(epoch):
             optimizer.step()
             optimizer.zero_grad()
 
+
     writer.add_scalar('Loss/train', loss, epoch)
-    
+
 # Testing epoch.
 def test(epoch):
     test_loss   = 0.0
@@ -338,7 +339,7 @@ with open(PATH+"/"+"model_summary.txt", 'w+') as f:
     sys.stdout = original_stdout 
 
 # Main loop.
-best_psnr   =0.0
+best_psnr   =-999
 for epoch in range(start_epoch, total_epochs):
     scheduler.step(epoch)
     print("\nTraining Epoch: %d" % epoch)
@@ -349,12 +350,14 @@ for epoch in range(start_epoch, total_epochs):
         _, _, metrics=test(epoch)
         
         #Saving the best model
+        print("Best PSNR: ", best_psnr)
+        print("Current PSNR: ", metrics["psnr"])
         if metrics["psnr"] > best_psnr:
             best_psnr = metrics["psnr"]
             
             #Saving best performance metrics
             torch.save(model.state_dict(), PATH+"/"+"best_model.pth")
-            with open(PATH+"/"+"best_metrics.json", "w+") as outfile: 
+            with open(PATH+"/"+"best_metrics.json", "w+") as outfile:
                 json.dump(metrics, outfile)
 
             #Saving best prediction

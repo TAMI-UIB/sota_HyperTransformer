@@ -67,7 +67,7 @@ def ERGAS(H_fuse, H_ref, beta):
     ERGAS = 100*(1/beta**2)*torch.sqrt(torch.nansum(torch.div(rmse, mu_ref)**2)/N_spectral)
     return ERGAS
 
-
+EPSILON=1.e-8
 # Peak SNR (PSNR)
 def PSNR(H_fuse, H_ref):
     #Compute number of spectral bands
@@ -84,6 +84,6 @@ def PSNR(H_fuse, H_ref):
     max_H_ref, _ = torch.max(H_ref_reshaped, dim=1)
 
     # Calculating PSNR
-    PSNR = torch.nansum(10*torch.log10(torch.div(max_H_ref, rmse)**2))/N_spectral
+    PSNR = -torch.sum(10*torch.log10(rmse**2+eps))/N_spectral
 
     return PSNR
