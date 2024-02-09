@@ -5,9 +5,9 @@
     "N_modules": 4,
     "train_dataset": "prisma_dataset",
     "is_DHP_MS": false,
-    "train_batch_size": 64,
-    "val_batch_size": 64,
-    "num_workers": 16,
+    "train_batch_size": 1,
+    "val_batch_size": 1,
+    "num_workers": 4,
 
     "optimizer": {
         "type": "ADAM",
@@ -21,11 +21,11 @@
     },
 
     "trainer": {
-        "total_epochs": 5,
+        "total_epochs": 2,
         "is_small_patch_train": false,
         "patch_size": 128,
         "iter_size": 1,
-        "test_freq": 10
+        "test_freq": 1
     },
 
     "pavia_dataset": {
@@ -77,8 +77,8 @@
         "feature_sum": false
     },
     "prisma_dataset": {
-        "data_dir": "/home/ivan/datasets/prisma/",
-        "spectral_bands": 66,
+        "data_dir": "/home/ivan/datasets/prismaH5/",
+        "spectral_bands": 63,
         "LR_size": 32,
         "HR_size": 128,
         "augmentation": false,

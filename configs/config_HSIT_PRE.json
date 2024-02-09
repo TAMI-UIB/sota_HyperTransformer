@@ -5,8 +5,8 @@
     "N_modules": 4,
     "train_dataset": "prisma_dataset",
     "is_DHP_MS": false,
-    "train_batch_size": 32,
-    "val_batch_size": 32,
+    "train_batch_size": 1,
+    "val_batch_size": 1,
     "num_workers": 8,
 
     "optimizer": {
@@ -21,7 +21,7 @@
     },
 
     "trainer": {
-        "total_epochs": 10000,
+        "total_epochs": 2,
         "is_small_patch_train": false,
         "patch_size": 128,
         "iter_size": 1,
@@ -53,8 +53,8 @@
         "feature_sum": true
     },
     "prisma_dataset": {
-        "data_dir": "/home/ivan/datasets/prisma/",
-        "spectral_bands": 66,
+        "data_dir": "/home/ivan/datasets/prismaH5/",
+        "spectral_bands": 63,
         "LR_size": 32,
         "HR_size": 128,
         "augmentation": false,
@@ -67,9 +67,9 @@
         "Transfer_Periferal_Loss": false,
         "VGG_Loss_F": 0.1,
         "Transfer_Periferal_Loss_F": 0.1,
-        "R": 35,
-        "G": 45,
-        "B": 57,
+        "R": 33,
+        "G": 43,
+        "B": 55,
         "Spatial_Loss": false,
         "Spatial_Loss_F": 1.0,
         "multi_scale_loss": false,
