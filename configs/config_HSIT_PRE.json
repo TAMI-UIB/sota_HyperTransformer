@@ -3,10 +3,10 @@
     "experim_name": "Experiments/HSIT_PRE",
     "model": "HSIT_PRE",
     "N_modules": 4,
-    "train_dataset": "prisma_dataset",
+    "train_dataset": "prismaH5_dataset",
     "is_DHP_MS": false,
-    "train_batch_size": 32,
-    "val_batch_size": 32,
+    "train_batch_size": 16,
+    "val_batch_size": 16,
     "num_workers": 8,
 
     "optimizer": {
@@ -27,9 +27,9 @@
         "iter_size": 1,
         "test_freq": 1
     },
-    "prisma_dataset": {
+    "prismaH5_dataset": {
             "data_dir": "/home/ivan/datasets/prisma/",
-            "spectral_bands": 66,
+            "spectral_bands": 63,
             "LR_size": 32,
             "HR_size": 128,
             "augmentation": false,
@@ -42,9 +42,9 @@
             "Transfer_Periferal_Loss": false,
             "VGG_Loss_F": 0.1,
             "Transfer_Periferal_Loss_F": 0.1,
-            "R": 35,
-            "G": 45,
-            "B": 57,
+            "R": 33,
+            "G": 43,
+            "B": 55,
             "Spatial_Loss": false,
             "Spatial_Loss_F": 1.0,
             "multi_scale_loss": false,

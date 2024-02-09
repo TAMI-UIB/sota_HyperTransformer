@@ -31,7 +31,7 @@ def ensure_dir(file_path):
     if not os.path.exists(directory):
         os.makedirs(directory)
 
-__dataset__ = {"pavia_dataset": pavia_dataset, "botswana_dataset": botswana_dataset, "chikusei_dataset": chikusei_dataset, "botswana4_dataset": botswana4_dataset, "WorldView2_dataset": WorldView2, "prisma_dataset":prisma}
+__dataset__ = {"pavia_dataset": pavia_dataset, "botswana_dataset": botswana_dataset, "chikusei_dataset": chikusei_dataset, "botswana4_dataset": botswana4_dataset, "WorldView2_dataset": WorldView2, "prismaH5_dataset":prisma}
 
 # Parse the arguments
 parser = argparse.ArgumentParser(description='PyTorch Training')
