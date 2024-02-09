@@ -69,21 +69,6 @@ def ERGAS(H_fuse, H_ref, beta):
 
 EPSILON=1.e-8
 # Peak SNR (PSNR)
-def PSNR(H_fuse, H_ref):
-    #Compute number of spectral bands
-    N_spectral = H_fuse.shape[1]
-
-    # Reshaping images
-    H_fuse_reshaped = H_fuse.view(N_spectral, -1)
-    H_ref_reshaped = H_ref.view(N_spectral, -1)
-
-    # Calculating RMSE of each band
-    rmse = torch.sqrt(torch.sum((H_ref_reshaped-H_fuse_reshaped)**2, dim=1)/H_fuse_reshaped.shape[1])
-
-    # Calculating max of H_ref for each band
-    max_H_ref, _ = torch.max(H_ref_reshaped, dim=1)
-
-    # Calculating PSNR
-    PSNR = -torch.sum(10*torch.log10(rmse**2+eps))/N_spectral
-
-    return PSNR
+def PSNR(pred, target):
+    psnr_list = -10 * torch.log10(torch.mean(torch.square(pred - target), dim=(1, 2, 3)))
+    return torch.mean(psnr_list)

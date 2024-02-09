@@ -41,11 +41,11 @@ class prisma(data.Dataset):
         super(prisma, self).__init__()
 
         self.config = config
-        data = h5py.File(f'{self.config["prisma_dataset"]["data_dir"]}/data.h5')
+        data = h5py.File(f'{self.config["prisma_dataset"]["data_dir"]}/data_def.h5')
         self.split = "train" if is_train else "validation"
-        self.gt = data[self.split]['gt']
+        self.gt = data[self.split]['gt'][:,2:65,:,:]
         self.pan = data[self.split]['pan']
-        self.hs = data[self.split]['low']
+        self.hs = data[self.split]['low'][:,2:65,:,:]
 
         self.hyper_channels = self.gt[0].shape[0]
         self.multi_channels = self.pan[0].shape[0]
