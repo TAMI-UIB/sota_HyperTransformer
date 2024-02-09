@@ -5,8 +5,8 @@
     "N_modules": 4,
     "train_dataset": "prisma_dataset",
     "is_DHP_MS": false,
-    "train_batch_size": 64,
-    "val_batch_size": 64,
+    "train_batch_size": 32,
+    "val_batch_size": 32,
     "num_workers": 16,
 
     "optimizer": {
@@ -21,13 +21,36 @@
     },
 
     "trainer": {
-        "total_epochs": 5,
+        "total_epochs": 10000,
         "is_small_patch_train": false,
         "patch_size": 128,
         "iter_size": 1,
-        "test_freq": 10
+        "test_freq": 1
     },
-
+    "prisma_dataset": {
+        "data_dir": "/home/ivan/datasets/prisma/",
+        "spectral_bands": 66,
+        "LR_size": 32,
+        "HR_size": 128,
+        "augmentation": false,
+        "max_value": 1,
+        "factor": 4,
+        "optimal_lambda": 0.8,
+        "loss_type": "L1",
+        "Normalized_L1": false,
+        "VGG_Loss": false,
+        "Transfer_Periferal_Loss": true,
+        "VGG_Loss_F": 0.1,
+        "Transfer_Periferal_Loss_F": 0.05,
+        "R": 35,
+        "G": 45,
+        "B": 57,
+        "Spatial_Loss": false,
+        "Spatial_Loss_F": 1.0,
+        "multi_scale_loss": true,
+        "multi_scale_loss_F": 0.2,
+        "feature_sum": false
+    },
     "pavia_dataset": {
         "data_dir": "./datasets/pavia_centre/pavia/",
         "spectral_bands": 102,
@@ -38,7 +61,7 @@
         "factor": 4,
         "optimal_lambda": 0.8,
         "loss_type": "L1",
-        "Normalized_L1": true,
+        "Normalized_L1": false,
         "VGG_Loss": true,
         "Transfer_Periferal_Loss": true,
         "VGG_Loss_F": 0.1,
@@ -76,30 +99,7 @@
         "multi_scale_loss_F": 0.2,
         "feature_sum": false
     },
-    "prisma_dataset": {
-        "data_dir": "/home/ivan/datasets/prisma/",
-        "spectral_bands": 66,
-        "LR_size": 32,
-        "HR_size": 128,
-        "augmentation": false,
-        "max_value": 1,
-        "factor": 4,
-        "optimal_lambda": 0.8,
-        "loss_type": "L1",
-        "Normalized_L1": false,
-        "VGG_Loss": true,
-        "Transfer_Periferal_Loss": true,
-        "VGG_Loss_F": 0.1,
-        "Transfer_Periferal_Loss_F": 0.05,
-        "R": 35,
-        "G": 45,
-        "B": 57,
-        "Spatial_Loss": false,
-        "Spatial_Loss_F": 1.0,
-        "multi_scale_loss": true,
-        "multi_scale_loss_F": 0.2,
-        "feature_sum": false
-    },
+
 
     "botswana_dataset": {
         "data_dir": "./datasets/botswana/botswana/",

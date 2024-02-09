@@ -27,7 +27,30 @@
         "iter_size": 1,
         "test_freq": 1
     },
-
+    "prisma_dataset": {
+            "data_dir": "/home/ivan/datasets/prisma/",
+            "spectral_bands": 66,
+            "LR_size": 32,
+            "HR_size": 128,
+            "augmentation": false,
+            "max_value": 1,
+            "factor": 4,
+            "optimal_lambda": 0.8,
+            "loss_type": "L1",
+            "Normalized_L1": false,
+            "VGG_Loss": false,
+            "Transfer_Periferal_Loss": false,
+            "VGG_Loss_F": 0.1,
+            "Transfer_Periferal_Loss_F": 0.1,
+            "R": 35,
+            "G": 45,
+            "B": 57,
+            "Spatial_Loss": false,
+            "Spatial_Loss_F": 1.0,
+            "multi_scale_loss": false,
+            "multi_scale_loss_F": 0.2,
+            "feature_sum": true
+        },
     "pavia_dataset": {
         "data_dir": "./datasets/pavia_centre/pavia/",
         "spectral_bands": 102,
@@ -52,30 +75,7 @@
         "multi_scale_loss_F": 0.2,
         "feature_sum": true
     },
-    "prisma_dataset": {
-        "data_dir": "/home/ivan/datasets/prisma/",
-        "spectral_bands": 66,
-        "LR_size": 32,
-        "HR_size": 128,
-        "augmentation": false,
-        "max_value": 1,
-        "factor": 4,
-        "optimal_lambda": 0.8,
-        "loss_type": "L1",
-        "Normalized_L1": false,
-        "VGG_Loss": false,
-        "Transfer_Periferal_Loss": false,
-        "VGG_Loss_F": 0.1,
-        "Transfer_Periferal_Loss_F": 0.1,
-        "R": 35,
-        "G": 45,
-        "B": 57,
-        "Spatial_Loss": false,
-        "Spatial_Loss_F": 1.0,
-        "multi_scale_loss": false,
-        "multi_scale_loss_F": 0.2,
-        "feature_sum": true
-    },
+
     "WorldView2_dataset": {
         "data_dir": "/home/ivan/datasets/WorldView2/",
         "spectral_bands": 8,

@@ -307,14 +307,14 @@ def test(epoch):
     pred    = torch.unsqueeze(outputs.view(-1, outputs.shape[-2], outputs.shape[-1]), 1)
     ref     = torch.unsqueeze(reference.view(-1, reference.shape[-2], reference.shape[-1]), 1)
     imgs    = torch.zeros(5*pred.shape[0], pred.shape[1], pred.shape[2], pred.shape[3])
-    for i in range(pred.shape[0]):
-        imgs[5*i]   = ms[i]
-        imgs[5*i+1] = torch.abs(ms[i]-pred[i])/torch.max(torch.abs(ms[i]-pred[i]))
-        imgs[5*i+2] = pred[i]
-        imgs[5*i+3] = ref[i]
-        imgs[5*i+4] = torch.abs(ref[i]-ms[i])/torch.max(torch.abs(ref[i]-ms[i]))
-    imgs = torchvision.utils.make_grid(imgs, nrow=5)
-    writer.add_image('Images', imgs, epoch)
+    # for i in range(pred.shape[0]):
+    #     imgs[5*i]   = ms[i]
+    #     imgs[5*i+1] = torch.abs(ms[i]-pred[i])/torch.max(torch.abs(ms[i]-pred[i]))
+    #     imgs[5*i+2] = pred[i]
+    #     imgs[5*i+3] = ref[i]
+    #     imgs[5*i+4] = torch.abs(ref[i]-ms[i])/torch.max(torch.abs(ref[i]-ms[i]))
+    # imgs = torchvision.utils.make_grid(imgs, nrow=5)
+    # writer.add_image('Images', imgs, epoch)
 
     #Return Outputs
     metrics = { "loss": float(test_loss), 
