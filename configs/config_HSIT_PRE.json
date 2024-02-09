@@ -28,7 +28,7 @@
         "test_freq": 1
     },
     "prismaH5_dataset": {
-            "data_dir": "/home/ivan/datasets/prisma/",
+            "data_dir": "/home/ivan/datasets/prismaH5/",
             "spectral_bands": 63,
             "LR_size": 32,
             "HR_size": 128,

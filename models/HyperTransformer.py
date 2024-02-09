@@ -7,7 +7,7 @@ from torchvision import models
 LOSS_TP = nn.L1Loss()
 
 EPS = 1e-10
-ours_data = {'prisma_dataset', 'WorldView2_dataset'}
+ours_data = {'prismaH5_dataset', 'WorldView2_dataset'}
 def conv1x1(in_channels, out_channels, stride=1):
     return nn.Conv2d(in_channels, out_channels, kernel_size=1,
                      stride=stride, padding=0, bias=True)
