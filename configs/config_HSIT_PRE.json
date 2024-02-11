@@ -1,6 +1,6 @@
 {
     "name": "HyperTransformer: A Textural and Spectral Feature Fusion Transformer for Pansharpening",
-    "experim_name": "Experiments/HSIT_PRE",
+    "experim_name": "Experiments2/HSIT_PRE",
     "model": "HSIT_PRE",
     "N_modules": 4,
     "train_dataset": "prismaH5_dataset",
@@ -16,7 +16,7 @@
             "weight_decay": 1e-4,
             "momentum": 0.99
         },
-        "step_size": 8000,
+        "step_size": 5000,
         "gamma": 0.1
     },
 
@@ -49,7 +49,7 @@
             "Spatial_Loss_F": 1.0,
             "multi_scale_loss": false,
             "multi_scale_loss_F": 0.2,
-            "feature_sum": true
+            "feature_sum": false
         },
     "pavia_dataset": {
         "data_dir": "./datasets/pavia_centre/pavia/",

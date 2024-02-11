@@ -10,7 +10,7 @@ class VGG19(nn.Module):
          use vgg19 conv1_2, conv2_2, conv3_3 feature, before relu layer
         '''
         self.feature_list = [2, 7, 14]
-        vgg19 = torchvision.models.vgg19(pretrained=True)
+        vgg19 = torchvision.models.vgg19(weights='IMAGENET1K_V1')
 
         self.model = torch.nn.Sequential(*list(vgg19.features.children())[:self.feature_list[-1]+1])
 
