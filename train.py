@@ -176,12 +176,13 @@ def train(epoch):
 
         # VGG Perceptual Loss
         if config[config["train_dataset"]]["VGG_Loss"]:
-            predicted_RGB   = torch.cat((torch.mean(outputs[:, 0:config[config["train_dataset"]]["G"], :, :], 1).unsqueeze(1), 
-                                        torch.mean(outputs[:, config[config["train_dataset"]]["B"]:config[config["train_dataset"]]["R"], :, :], 1).unsqueeze(1), 
+            predicted_RGB   = torch.cat((torch.mean(outputs[:, 0:config[config["train_dataset"]]["G"], :, :], 1).unsqueeze(1),
+                                        torch.mean(outputs[:, config[config["train_dataset"]]["R"]:config[config["train_dataset"]]["B"], :, :], 1).unsqueeze(1),
                                         torch.mean(outputs[:, config[config["train_dataset"]]["G"]:config[config["train_dataset"]]["spectral_bands"], :, :], 1).unsqueeze(1)), 1)
-            target_RGB   = torch.cat((torch.mean(to_variable(reference)[:, 0:config[config["train_dataset"]]["G"], :, :], 1).unsqueeze(1), 
-                                        torch.mean(to_variable(reference)[:, config[config["train_dataset"]]["B"]:config[config["train_dataset"]]["R"], :, :], 1).unsqueeze(1), 
+            target_RGB   = torch.cat((torch.mean(to_variable(reference)[:, 0:config[config["train_dataset"]]["G"], :, :], 1).unsqueeze(1),
+                                        torch.mean(to_variable(reference)[:, config[config["train_dataset"]]["R"]:config[config["train_dataset"]]["B"], :, :], 1).unsqueeze(1),
                                         torch.mean(to_variable(reference)[:, config[config["train_dataset"]]["G"]:config[config["train_dataset"]]["spectral_bands"], :, :], 1).unsqueeze(1)), 1)
+
             VGG_loss        = VGGPerceptualLoss(predicted_RGB, target_RGB, vggnet)
             loss            += config[config["train_dataset"]]["VGG_Loss_F"]*VGG_loss
 
